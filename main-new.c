@@ -836,22 +836,22 @@ int editBarang(){
                 printf("| %-5s ", kode);
                 
                 if (strcmp(nama, "-") == 0){
-                    printf("| %-30s ", "Tidak Berubah");
+                    printf("| %-30s ", "Sama");
                 } else {
                     printf("| %-30s ", nama);
                 }
                 if (strcmp(kategori, "-") == 0){
-                    printf("| %-8s ", "Tidak Berubah");
+                    printf("| %-8s ", "Sama");
                 } else {
                     printf("| %-8s ", kategori);
                 }
                 if (strcmp(hargaChar, "-") == 0){
-                    printf("| %-6s ", "Tidak Berubah");
+                    printf("| %-6s ", "Sama");
                 } else {
                     printf("| Rp %-6d ", hargaInt);
                 }
                 if (strcmp(kuanChar, "-") == 0){
-                    printf("| %-12s ", "Tidak Berubah");
+                    printf("| %-16s ", "Sama");
                 } else {
                     printf("| %-12d |\n", kuanInt);
                 }
@@ -896,6 +896,7 @@ int editBarang(){
             produk[index].kuan = kuanInt;
         }
         bunyiBeep();
+        system("cls");
         printf("Pengeditan barang berhasil!\n");
         do
         {
