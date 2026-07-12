@@ -197,9 +197,6 @@ int tambahkeranjang(){
     char cari[5];
     int input, j, l, p = 0;
 
-    //keranjang[0] menyimpan index (i)
-    //keranjang[1] menyimpan jumlah
-
     printf("\nMasukkan ID Produk: ");
     scanf(" %4[^\n]", cari);
     bunyiBeep();
@@ -849,9 +846,9 @@ int editBarang(){
                     printf("| %-8s ", kategori);
                 }
                 if (strcmp(hargaChar, "-") == 0){
-                    printf("| %-6s \t", "Tidak Berubah");
+                    printf("| %-6s ", "Tidak Berubah");
                 } else {
-                    printf("| Rp %-6d \t", hargaInt);
+                    printf("| Rp %-6d ", hargaInt);
                 }
                 if (strcmp(kuanChar, "-") == 0){
                     printf("| %-12s ", "Tidak Berubah");
