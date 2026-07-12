@@ -197,9 +197,6 @@ int tambahkeranjang(){
     char cari[5];
     int input, j, l, p = 0;
 
-    //keranjang[0] menyimpan index (i)
-    //keranjang[1] menyimpan jumlah
-
     printf("\nMasukkan ID Produk: ");
     scanf(" %4[^\n]", cari);
     bunyiBeep();
