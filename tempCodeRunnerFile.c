@@ -112,10 +112,9 @@ void tampilkanLogin(char *usernameLolos) {
         scanf("%s", password); 
         while (getchar() != '\n'); 
         
-        // Pengecekan 4 Akun Berbeda
         if ((strcmp(usernameLolos, "Kenji") == 0 && strcmp(password, "672025046") == 0) ||
             (strcmp(usernameLolos, "Hans") == 0 && strcmp(password, "672025047") == 0) ||
-            (strcmp(usernameLolos, "Theo") == 0 && strcmp(password, "672025093") == 0) ||
+            (strcmp(usernameLolos, "Teo") == 0 && strcmp(password, "672025093") == 0) ||
             (strcmp(usernameLolos, "Nathan") == 0 && strcmp(password, "672025101") == 0)) {
             
             bunyiBeep();
@@ -170,6 +169,7 @@ void tampilkanAnggota() {
 int validasiIsi(char inputChar[]){
     if(inputChar[0] == '\0'){
         bunyiError();
+        system("cls");
         printf("Tidak boleh kosong!\n");
         return 0;
     }
@@ -179,9 +179,11 @@ int validasiIsi(char inputChar[]){
 int validasiInteger(char inputChar[], int *outputInteger){
     if(strlen(inputChar) == 0) {
         bunyiError();
+        system("cls");
         printf("Input tidak boleh kosong!\n");
     } else if (strspn(inputChar, "0123456789") != strlen(inputChar)){
         bunyiError();
+        system("cls");
         printf("Input hanya berupa angka saja.\n");
     } else {
         *outputInteger = atoi(inputChar);
@@ -455,35 +457,28 @@ int tambahBarang(){
                     if (strcmp(produk[i].id, kode) == 0)
                     {
                         bunyiError();
+                        system("cls");
                         printf("Kode sudah dipakai, Gunakan kode lain.\n");
                         validasi = 0;
+                        break;
                     }  
                 }
             } while (validasi != 1);
             bunyiBeep();
-            
             do
             {
                 printf("Masukkan Nama : ");
                 fgets(nama, sizeof(nama), stdin);
                 nama[strcspn(nama, "\n")] = '\0';
-                if(!validasiIsi(nama)){
-                    break;
-                }
             } while (!validasiIsi(nama));
             bunyiBeep();
-
             do
             {
                 printf("Masukkan Kategori : ");
                 fgets(kategori, sizeof(kategori), stdin);
                 kategori[strcspn(kategori, "\n")] = '\0';
-                if (!validasiIsi(kategori)){
-                    break;
-                }
             } while (!validasiIsi(kategori));
             bunyiBeep();
-
             do
             {
                 printf("Masukkan Harga Barang : ");
@@ -491,7 +486,6 @@ int tambahBarang(){
                 hargaChar[strcspn(hargaChar, "\n")] = '\0';
             } while (!validasiInteger(hargaChar, &hargaInt));
             bunyiBeep();
-
             do
             {
                 printf("Masukkan Stok Barang : ");
@@ -499,13 +493,13 @@ int tambahBarang(){
                 kuanChar[strcspn(kuanChar, "\n")] = '\0';
             } while (!validasiInteger(kuanChar, &kuanInt));
             bunyiBeep();
-
+            
             system("cls");
             printf("Silahkan Cek ulang data yang anda isi :\n");
-            printf("====================================== BARANG ======================================\n");
-            printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
-            printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", kode, nama, kategori, hargaInt, kuanInt);
-            printf("====================================================================================\n");
+            printf("====================================== BARANG ===================================\n");
+            printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+            printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", kode, nama, kategori, hargaInt, kuanInt);
+            printf("=================================================================================\n");
             do
             {
                 printf("Apakah kamu ingin melanjutkan?\n");
@@ -548,23 +542,26 @@ int tambahBarang(){
                 fgets(pilihanChar, sizeof(pilihanChar), stdin);
                 pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
             } while (!validasiInteger(pilihanChar, &pilihanInt));
-            bunyiBeep();
-
+            
             switch (pilihanInt)
             {
             case 1:
                 validasi = 1;
+                ditemukan = 0;
+                bunyiBeep();
                 system("cls");
                 printf("Mengulang penginputan barang\n");
                 break;
             case 0:
                 validasi = 1;
+                bunyiBeep();
                 system("cls");
                 printf("Kembali ke menu database\n");
                 break;
             default:
                 validasi = 0;
                 bunyiError();
+                system("cls");
                 printf("Tidak ada pilihan seperti itu!\n");
                 break;
             }
@@ -575,7 +572,7 @@ int tambahBarang(){
 
 int hapusBarang(){
     char pilihanChar[10], kode[10];
-    int pilihanInt, validasi = 0, ditemukan = 0, index = -1;
+    int pilihanInt, validasi = 0, index = -1, cobaLagi = 0;
     do
     {   
         do
@@ -588,61 +585,80 @@ int hapusBarang(){
                 kode[strcspn(kode, "\n")] = '\0';
             } while (!validasiIsi(kode));
             bunyiBeep();
-
+            system("cls");
             for (int i = 0; i < length; i++)
             {
                 if (strcmp(produk[i].id, kode) == 0){
-                printf("============================= BARANG DITEMUKAN =====================================\n");
-                printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
-                printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
-                printf("====================================================================================\n");
-                ditemukan = 1;
+                printf("=========================== BARANG DITEMUKAN ===================================\n");
+                printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+                printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+                printf("================================================================================\n");
                 index = i;
                 }
             }
-            if(!ditemukan){
-                bunyiError();
-                do
-                {
-                    printf("Barang tidak ditemukan\n");
-                    do
-                    {
-                        printf("Apakah ingin mencoba lagi?\n");
-                        printf("1 Ya / 0 Tidak\n");
-                        printf("Pilihanmu : ");
-                        fgets(pilihanChar, sizeof(pilihanChar), stdin);
-                        pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
-                    } while (validasiInteger(pilihanChar, &pilihanInt));
+            if(index == -1){
+                    do {
+                        printf("Barang tidak ditemukan\n");
+                        do {
+                            printf("Apakah ingin mencoba lagi?\n");
+                            printf("1 Ya / 0 Tidak\n");
+                            printf("Pilihanmu : ");
+                            fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                            pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+                            
+                        } while (!validasiInteger(pilihanChar, &pilihanInt));
+                        bunyiBeep();
                     switch (pilihanInt)
                     {
                     case 1:
                         system("cls");
-                        printf("Mencoba lagi . . .\n");
-                        continue;
+                        printf("Mencoba lagi...\n");
+                        cobaLagi = 1;
                         break;
+
                     case 0:
                         system("cls");
                         return 0;
-                        break;
+
                     default:
+                        bunyiError();
                         system("cls");
                         printf("Tidak ada pilihan seperti itu!\n");
-                        break;
                     }
+
                 } while (pilihanInt != 1 && pilihanInt != 0);
+
+                if (cobaLagi)
+                    continue;
                 } 
-            do
-            {
-                printf("Apakah kamu ingin menghapus data ini?\n");
-                printf("1 Ya / 0 Tidak\n");
-                printf("Pilihanmu : ");
-                fgets(pilihanChar, sizeof(pilihanChar), stdin);
-                pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
-            } while (!validasiInteger(pilihanChar, &pilihanInt));
-            bunyiBeep();
+            do {
+                do
+                {
+                    printf("Apakah kamu ingin menghapus data ini?\n");
+                    printf("1 Ya / 0 Tidak\n");
+                    printf("Pilihanmu : ");
+                    fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                    pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+                } while (!validasiInteger(pilihanChar, &pilihanInt));
+                switch (pilihanInt)
+                {
+                case 1:
+                    bunyiBeep();
+                    break;
+                case 0:
+                    bunyiBeep();
+                    system("cls");
+                    break;
+                default:
+                    bunyiError();
+                    system("cls");
+                    printf("Tidak ada pilihan seperti itu!\n");
+                    break;
+                }
+            } while (pilihanInt != 1 && pilihanInt != 0);
 
         } while (pilihanInt != 1);
-        
+        system("cls");
         if (index != -1) {
             for(int i=index; i<length-1; i++) {
                 produk[i] = produk[i+1];
@@ -651,7 +667,6 @@ int hapusBarang(){
             bunyiBeep();
             printf("Barang berhasil di hapus!\n");
         }
-        validasi = 0;
         do
         {
             do
@@ -662,17 +677,19 @@ int hapusBarang(){
                 fgets(pilihanChar, sizeof(pilihanChar), stdin);
                 pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
             } while (!validasiInteger(pilihanChar, &pilihanInt));
-            bunyiBeep();
-
+            
             switch (pilihanInt)
             {
             case 1:
                 validasi = 1;
+                bunyiBeep();
+                index = -1;
                 system("cls");
                 printf("Melakukan penghapusan barang lagi...\n");
                 break;
             case 0:
                 validasi = 1;
+                bunyiBeep();
                 system("cls");
                 printf("Kembali ke menu database\n");
                 break;
@@ -688,20 +705,251 @@ int hapusBarang(){
     return 0;
 }
 
+int editBarang(){
+    char pilihanChar[10], kode[10], nama[50], kategori[20], hargaChar[10], kuanChar[10];
+    int pilihanInt, hargaInt, kuanInt, validasi = 0, index = -1, cobaLagi = 0;
+    do
+    {
+        do
+        {
+            printf("Menu Edit Barang\n");
+            do
+            {
+                printf("Silahkan cari kode barang (Contoh: T001) : ");
+                fgets(kode, sizeof(kode), stdin);
+                kode[strcspn(kode, "\n")] = '\0';
+            } while (!validasiIsi(kode));
+            bunyiBeep();
+            system("cls");
+            for (int i = 0; i < length; i++)
+            {
+                if (strcmp(produk[i].id, kode) == 0){
+                printf("=========================== BARANG DITEMUKAN ===================================\n");
+                printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+                printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+                printf("================================================================================\n");
+                index = i;
+                }
+            }
+            if(index == -1){
+                    do {
+                        printf("Barang tidak ditemukan\n");
+                        do {
+                            printf("Apakah ingin mencoba lagi?\n");
+                            printf("1 Ya / 0 Tidak\n");
+                            printf("Pilihanmu : ");
+                            fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                            pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+                            
+                        } while (!validasiInteger(pilihanChar, &pilihanInt));
+                        bunyiBeep();
+                    switch (pilihanInt)
+                    {
+                    case 1:
+                        system("cls");
+                        printf("Mencoba lagi...\n");
+                        cobaLagi = 1;
+                        break;
 
+                    case 0:
+                        system("cls");
+                        return 0;
+
+                    default:
+                        bunyiError();
+                        system("cls");
+                        printf("Tidak ada pilihan seperti itu!\n");
+                    }
+
+                } while (pilihanInt != 1 && pilihanInt != 0);
+
+                if (cobaLagi)
+                    continue;
+                } 
+            do {
+                do
+                {
+                    printf("Apakah kamu ingin mengedit data ini?\n");
+                    printf("1 Ya / 0 Tidak\n");
+                    printf("Pilihanmu : ");
+                    fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                    pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+                } while (!validasiInteger(pilihanChar, &pilihanInt));
+                switch (pilihanInt)
+                {
+                case 1:
+                    bunyiBeep();
+                    break;
+                case 0:
+                    bunyiBeep();
+                    system("cls");
+                    break;
+                default:
+                    bunyiError();
+                    system("cls");
+                    printf("Tidak ada pilihan seperti itu!\n");
+                    break;
+                }
+            } while (pilihanInt != 1 && pilihanInt != 0);
+
+        } while (pilihanInt != 1);
+        system("cls");
+        do
+        {
+            printf("Silahkan isi pengeditan barang (Jika tidak ingin di edit, cukup isi \"-\")\n");
+            do
+            {
+                printf("Edit nama : ");
+                fgets(nama, sizeof(nama), stdin);
+                nama[strcspn(nama, "\n")] = '\0';
+            } while (!validasiIsi(nama));
+            bunyiBeep();
+            do
+            {
+                printf("Edit kategori : ");
+                fgets(kategori, sizeof(kategori), stdin);
+                kategori[strcspn(kategori, "\n")] = '\0';
+            } while (!validasiIsi(kategori));
+            bunyiBeep();
+            do
+            {
+                printf("Edit harga : ");
+                fgets(hargaChar, sizeof(hargaChar), stdin);
+                hargaChar[strcspn(hargaChar, "\n")] = '\0';
+                if (strcmp(hargaChar, "-") == 0)
+                {
+                    break;
+                }    
+            } while (!validasiInteger(hargaChar, &hargaInt));
+            bunyiBeep();
+            do
+            {
+                printf("Edit kuantitas : ");
+                fgets(kuanChar, sizeof(kuanChar), stdin);
+                kuanChar[strcspn(kuanChar, "\n")] = '\0';
+                if (strcmp(kuanChar, "-") == 0)
+                {
+                    break;
+                }
+            } while (!validasiInteger(kuanChar, &kuanInt));
+            bunyiBeep();
+
+                printf("====================================== BARANG ======================================\n");
+                printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
+                printf("| %-5s ", kode);
+                
+                if (strcmp(nama, "-") == 0){
+                    printf("| %-30s ", "Tidak Berubah");
+                } else {
+                    printf("| %-30s ", nama);
+                }
+                if (strcmp(kategori, "-") == 0){
+                    printf("| %-8s ", "Tidak Berubah");
+                } else {
+                    printf("| %-8s ", kategori);
+                }
+                if (strcmp(hargaChar, "-") == 0){
+                    printf("| %-6s \t", "Tidak Berubah");
+                } else {
+                    printf("| Rp %-6d \t", hargaInt);
+                }
+                if (strcmp(kuanChar, "-") == 0){
+                    printf("| %-12s ", "Tidak Berubah");
+                } else {
+                    printf("| %-12d |\n", kuanInt);
+                }
+                printf("====================================================================================\n");
+            do {
+                do
+                {
+                    printf("Apakah kamu ingin mengedit data ini?\n");
+                    printf("1 Ya / 0 Tidak\n");
+                    printf("Pilihanmu : ");
+                    fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                    pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+                } while (!validasiInteger(pilihanChar, &pilihanInt));
+                switch (pilihanInt)
+                {
+                case 1:
+                    bunyiBeep();
+                    break;
+                case 0:
+                    bunyiBeep();
+                    system("cls");
+                    break;
+                default:
+                    bunyiError();
+                    system("cls");
+                    printf("Tidak ada pilihan seperti itu!\n");
+                    break;
+                }
+            } while (pilihanInt != 1 && pilihanInt != 0);
+            
+        } while (pilihanInt != 1);
+        if (strcmp(nama, "-") != 0) {
+            strcpy(produk[index].nama, nama);
+        }
+        if (strcmp(kategori, "-") != 0){
+            strcpy(produk[index].kategori, kategori);
+        }
+        if (strcmp(hargaChar, "-") != 0){
+            produk[index].harga = hargaInt;
+        }
+        if (strcmp(kuanChar, "-") != 0){
+            produk[index].kuan = kuanInt;
+        }
+        bunyiBeep();
+        printf("Pengeditan barang berhasil!\n");
+        do
+        {
+            do
+            {
+                printf("Apakah kamu ingin mengedit barang lagi?\n");
+                printf("1 Ya / 0 Tidak\n");
+                printf("Pilihanmu : ");
+                fgets(pilihanChar, sizeof(pilihanChar), stdin);
+                pilihanChar[strcspn(pilihanChar, "\n")] = '\0';
+            } while (!validasiInteger(pilihanChar, &pilihanInt));
+            
+            switch (pilihanInt)
+            {
+            case 1:
+                validasi = 1;
+                index = -1;
+                bunyiBeep();
+                system("cls");
+                printf("Melakukan pengeditan barang lagi...\n");
+                break;
+            case 0:
+                validasi = 1;
+                bunyiBeep();
+                system("cls");
+                printf("Kembali ke menu database\n");
+                break;
+            default:
+                validasi = 0;
+                bunyiError();
+                system("cls");
+                printf("Tidak ada pilihan tersebut!\n");
+                break;
+            }
+        } while (validasi != 1);
+    } while (pilihanInt != 0);
+    return 0;
+}
 
 int tampilBarangSementara (){
     system("cls");
     printf("Menampilkan barang-barang\n");
-    printf("================================ BARANG ========================================\n");
-    printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
+    printf("================================= BARANG ========================================\n");
+    printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
     for (int i = 0; i < length; i++)
     {
         if(produk[i].id[0] != '\0'){
-            printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+            printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
         }
     }
-    printf("====================================================================================\n");
+    printf("=================================================================================\n");
     printf("Tekan Enter untuk kembali...");
     getchar();
     bunyiBeep();
@@ -745,6 +993,7 @@ int menuDatabase(){
             break;
         case 3:
             system("cls");
+            editBarang();
             break;
         case 4:
             system("cls");
