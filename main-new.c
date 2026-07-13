@@ -114,7 +114,7 @@ void tampilkanLogin(char *usernameLolos) {
         
         if ((strcmp(usernameLolos, "Kenji") == 0 && strcmp(password, "672025046") == 0) ||
             (strcmp(usernameLolos, "Hans") == 0 && strcmp(password, "672025047") == 0) ||
-            (strcmp(usernameLolos, "Theo") == 0 && strcmp(password, "672025093") == 0) ||
+            (strcmp(usernameLolos, "Teo") == 0 && strcmp(password, "672025093") == 0) ||
             (strcmp(usernameLolos, "Nathan") == 0 && strcmp(password, "672025101") == 0)) {
             
             bunyiBeep();
@@ -193,6 +193,7 @@ int validasiInteger(char inputChar[], int *outputInteger){
 }
 
 int tambahkeranjang(){
+    system("cls");
     int k = 0;
     char cari[5];
     int input, j, l, p = 0;
@@ -278,6 +279,7 @@ int tambahkeranjang(){
 
 int beli(){
     int input;
+    system("cls");
     printf("====================================== KERANJANG ANDA ======================================\n");
     printf("| %-5s | %-30s | %-15s | %-7s | %-12s |\n", "Kode", "Nama Produk", "Harga Satuan", "Jumlah", "Total");
     printf("--------------------------------------------------------------------------------------------\n");
@@ -462,7 +464,6 @@ int tambahBarang(){
                 }
             } while (validasi != 1);
             bunyiBeep();
-            system("cls");
             do
             {
                 printf("Masukkan Nama : ");
@@ -470,7 +471,6 @@ int tambahBarang(){
                 nama[strcspn(nama, "\n")] = '\0';
             } while (!validasiIsi(nama));
             bunyiBeep();
-            system("cls");
             do
             {
                 printf("Masukkan Kategori : ");
@@ -478,7 +478,6 @@ int tambahBarang(){
                 kategori[strcspn(kategori, "\n")] = '\0';
             } while (!validasiIsi(kategori));
             bunyiBeep();
-            system("cls");
             do
             {
                 printf("Masukkan Harga Barang : ");
@@ -486,7 +485,6 @@ int tambahBarang(){
                 hargaChar[strcspn(hargaChar, "\n")] = '\0';
             } while (!validasiInteger(hargaChar, &hargaInt));
             bunyiBeep();
-            system("cls");
             do
             {
                 printf("Masukkan Stok Barang : ");
@@ -497,10 +495,10 @@ int tambahBarang(){
             
             system("cls");
             printf("Silahkan Cek ulang data yang anda isi :\n");
-            printf("====================================== BARANG ======================================\n");
-            printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
-            printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", kode, nama, kategori, hargaInt, kuanInt);
-            printf("====================================================================================\n");
+            printf("====================================== BARANG ===================================\n");
+            printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+            printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", kode, nama, kategori, hargaInt, kuanInt);
+            printf("=================================================================================\n");
             do
             {
                 printf("Apakah kamu ingin melanjutkan?\n");
@@ -590,10 +588,10 @@ int hapusBarang(){
             for (int i = 0; i < length; i++)
             {
                 if (strcmp(produk[i].id, kode) == 0){
-                printf("============================= BARANG DITEMUKAN =====================================\n");
-                printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
-                printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
-                printf("====================================================================================\n");
+                printf("=========================== BARANG DITEMUKAN ===================================\n");
+                printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+                printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+                printf("================================================================================\n");
                 index = i;
                 }
             }
@@ -713,7 +711,7 @@ int editBarang(){
     {
         do
         {
-            printf("Menu penghapusan barang\n");
+            printf("Menu Edit Barang\n");
             do
             {
                 printf("Silahkan cari kode barang (Contoh: T001) : ");
@@ -725,10 +723,10 @@ int editBarang(){
             for (int i = 0; i < length; i++)
             {
                 if (strcmp(produk[i].id, kode) == 0){
-                printf("============================= BARANG DITEMUKAN =====================================\n");
-                printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
-                printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
-                printf("====================================================================================\n");
+                printf("=========================== BARANG DITEMUKAN ===================================\n");
+                printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
+                printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+                printf("================================================================================\n");
                 index = i;
                 }
             }
@@ -840,22 +838,22 @@ int editBarang(){
                 printf("| %-5s ", kode);
                 
                 if (strcmp(nama, "-") == 0){
-                    printf("| %-30s ", "Tidak Berubah");
+                    printf("| %-30s ", "Sama");
                 } else {
                     printf("| %-30s ", nama);
                 }
                 if (strcmp(kategori, "-") == 0){
-                    printf("| %-8s ", "Tidak Berubah");
+                    printf("| %-8s ", "Sama");
                 } else {
                     printf("| %-8s ", kategori);
                 }
                 if (strcmp(hargaChar, "-") == 0){
-                    printf("| %-6s \t", "Tidak Berubah");
+                    printf("| %-6s ", "Sama");
                 } else {
-                    printf("| Rp %-6d \t", hargaInt);
+                    printf("| Rp %-6d ", hargaInt);
                 }
                 if (strcmp(kuanChar, "-") == 0){
-                    printf("| %-12s ", "Tidak Berubah");
+                    printf("| %-16s ", "Sama");
                 } else {
                     printf("| %-12d |\n", kuanInt);
                 }
@@ -900,6 +898,7 @@ int editBarang(){
             produk[index].kuan = kuanInt;
         }
         bunyiBeep();
+        system("cls");
         printf("Pengeditan barang berhasil!\n");
         do
         {
@@ -942,15 +941,15 @@ int editBarang(){
 int tampilBarangSementara (){
     system("cls");
     printf("Menampilkan barang-barang\n");
-    printf("================================ BARANG ========================================\n");
-    printf("| Kode  | Nama Produk                    | Kategori | Harga     | Jumlah Stok  |\n");
+    printf("================================= BARANG ========================================\n");
+    printf("| Kode  | Nama Produk                    | Kategori  | Harga     | Jumlah Stok  |\n");
     for (int i = 0; i < length; i++)
     {
         if(produk[i].id[0] != '\0'){
-            printf("| %-5s | %-30s | %-8s | Rp %-6d \t| %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
+            printf("| %-5s | %-30s | %-9s | Rp %-6d | %-12d |\n", produk[i].id, produk[i].nama, produk[i].kategori, produk[i].harga, produk[i].kuan);
         }
     }
-    printf("====================================================================================\n");
+    printf("=================================================================================\n");
     printf("Tekan Enter untuk kembali...");
     getchar();
     bunyiBeep();
