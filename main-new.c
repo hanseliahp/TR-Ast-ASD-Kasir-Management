@@ -55,7 +55,7 @@ void bunyiError() {
 void tampilkanLoading() {
     system("cls");
     printf("\n\n\n\n\n\n\n");
-    printf("                  SELAMAT DATANG DI SISTEM KOPERASI DESA\n\n");
+    printf("                    SELAMAT DATANG DI SISTEM KOPERASI DESA\n\n");
     
     for (int i = 0; i <= 100; i += 5) {
         printf("                                Loading : %d%%\n\n", i);
@@ -380,7 +380,7 @@ int menuKasir(){
         system("cls");
         printf("\n\n");
         printf("      ||====================================================||\n");
-        printf("      ||                   MENU KASIR                       ||\n");
+        printf("      ||                     MENU KASIR                     ||\n");
         printf("      ||====================================================||\n");
         printf("      ||                                                    ||\n");
         printf("      ||    1. Tambahkan Keranjang                          ||\n");
@@ -966,7 +966,7 @@ int menuDatabase(){
         system("cls");
         printf("\n\n");
         printf("      ||====================================================||\n");
-        printf("      ||                 MENU DATABASE                      ||\n");
+        printf("      ||                    MENU DATABASE                   ||\n");
         printf("      ||====================================================||\n");
         printf("      ||                                                    ||\n");
         printf("      ||    1. Tambah barang                                ||\n");
@@ -1035,7 +1035,7 @@ int main() {
         system("cls");
         printf("\n\n");
         printf("      ||====================================================||\n");
-        printf("      ||             SISTEM KOPERASI DESA                   ||\n");
+        printf("      ||                SISTEM KOPERASI DESA                ||\n");
         printf("      ||====================================================||\n");
         printf("      ||                                                    ||\n");
         printf("      ||    1. Masuk Menu Kasir                             ||\n");
