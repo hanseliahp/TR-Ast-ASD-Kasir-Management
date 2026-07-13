@@ -193,6 +193,7 @@ int validasiInteger(char inputChar[], int *outputInteger){
 }
 
 int tambahkeranjang(){
+    system("cls");
     int k = 0;
     char cari[5];
     int input, j, l, p = 0;
@@ -278,6 +279,7 @@ int tambahkeranjang(){
 
 int beli(){
     int input;
+    system("cls");
     printf("====================================== KERANJANG ANDA ======================================\n");
     printf("| %-5s | %-30s | %-15s | %-7s | %-12s |\n", "Kode", "Nama Produk", "Harga Satuan", "Jumlah", "Total");
     printf("--------------------------------------------------------------------------------------------\n");

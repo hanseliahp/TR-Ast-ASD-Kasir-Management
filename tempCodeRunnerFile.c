@@ -193,6 +193,7 @@ int validasiInteger(char inputChar[], int *outputInteger){
 }
 
 int tambahkeranjang(){
+    system("cls");
     int k = 0;
     char cari[5];
     int input, j, l, p = 0;
